@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">ContactV4</string>
+
+    <string name="rechercher_contact">Rechercher un contact</string>
+    <string name="ajouter_contact">Ajouter un contact</string>
+    <string name="parametres">Paramètres</string>
+    <string name="nom">Nom</string>
+    <string name="prenom">Prénom</string>
+    <string name="telephone">Téléphone</string>
+    <string name="email">Email</string>
+
+    <string name="enregistrer">Enregistrer</string>
+    <string name="annuler">Annuler</string>
+    <string name="supprimer">Supprimer</string>
+    <string name="appeler">Appeler</string>
+</resources>
