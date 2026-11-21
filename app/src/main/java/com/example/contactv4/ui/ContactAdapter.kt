@@ -46,11 +46,9 @@ class ContactAdapter(
         holder.nom.text = contact.nom
         holder.prenom.text = contact.prenom
         holder.telephone.text = contact.telephone
-
         holder.itemView.setOnClickListener {
             onClick(contact)
         }
-
         holder.btnAppeler.setOnClickListener {
             onCall(contact)
         }

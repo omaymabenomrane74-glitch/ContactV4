@@ -16,21 +16,17 @@ android {
     buildFeatures {
         viewBinding = true
     }
-
     buildTypes {
         release {
             isMinifyEnabled = false
         }
     }
-
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
 }
-
 dependencies {
-
     // Android
     implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.appcompat)
@@ -55,8 +51,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
 
     // Google Maps
-    implementation("com.google.android.gms:play-services-maps:19.0.0")
-
+    implementation("com.google.android.gms:play-services-maps:19.2.0")
     // Tests
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.espresso.core)

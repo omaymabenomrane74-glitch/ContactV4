@@ -1,4 +1,3 @@
-
 package com.example.contactv4.ui
 import android.content.Intent
 import android.net.Uri
@@ -12,85 +11,66 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-
 import com.example.contactv4.R
 import com.example.contactv4.ui.MainActivity
 import com.example.contactv4.data.ContactDao
 import com.example.contactv4.data.ContactDbHelper
 import com.example.contactv4.databinding.FragmentListeContactsBinding
-
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-
 class ListeContactsFragment : Fragment() {
-
     private var _binding: FragmentListeContactsBinding? = null
     private val binding get() = _binding!!
-
     private lateinit var dao: ContactDao
     private lateinit var adapter: ContactAdapter
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentListeContactsBinding.inflate(
             inflater,
             container,
             false
         )
-
         return binding.root
     }
-
     override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?
     ) {
         super.onViewCreated(view, savedInstanceState)
-
         dao = ContactDao(
             ContactDbHelper.getInstance(requireContext())
         )
-
         adapter = ContactAdapter(
             emptyList(),
 
             onClick = { contact ->
                 ouvrirDetail(contact.id.toLong())
             },
-
             onCall = { contact ->
                 appeler(contact.telephone)
             }
         )
-
         binding.recyclerContacts.layoutManager =
             LinearLayoutManager(requireContext())
-
         binding.recyclerContacts.adapter = adapter
-
         binding.btnAjouter.setOnClickListener {
             ouvrirDetail(0L)
         }
-
         binding.btnParametres.setOnClickListener {
             (activity as? MainActivity)?.ouvrirParametres()
         }
-
         binding.edtRecherche.addTextChangedListener(
             object : TextWatcher {
-
                 override fun beforeTextChanged(
                     s: CharSequence?,
                     start: Int,
                     count: Int,
                     after: Int
                 ) {}
-
                 override fun onTextChanged(
                     s: CharSequence?,
                     start: Int,

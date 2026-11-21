@@ -14,10 +14,8 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 class CarteContactFragment : Fragment(), OnMapReadyCallback {
     private var _binding: FragmentCarteContactBinding? = null
-
     private var latitude = 0.0
     private var longitude = 0.0
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -26,13 +24,10 @@ class CarteContactFragment : Fragment(), OnMapReadyCallback {
         _binding = FragmentCarteContactBinding.inflate(
             inflater, container, false
         )
-
         latitude = arguments?.getDouble("latitude") ?: 0.0
         longitude = arguments?.getDouble("longitude") ?: 0.0
-
         return _binding!!.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -41,7 +36,6 @@ class CarteContactFragment : Fragment(), OnMapReadyCallback {
 
         mapFragment?.getMapAsync(this)
     }
-
     override fun onMapReady(googleMap: GoogleMap) {
 
         if (latitude !in -90.0..90.0 ||
@@ -60,7 +54,6 @@ class CarteContactFragment : Fragment(), OnMapReadyCallback {
             CameraUpdateFactory.newLatLngZoom(position, 15f)
         )
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

@@ -14,15 +14,13 @@ import com.example.contactv4.databinding.FragmentDetailContactBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-
+import com.example.contactv4.R
 class DetailContactFragment : Fragment() {
-
     private var _binding: FragmentDetailContactBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var dao: ContactDao
     private var contactId: Long = 0
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,10 +32,8 @@ class DetailContactFragment : Fragment() {
             container,
             false
         )
-
         return binding.root
     }
-
     override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?
@@ -67,6 +63,15 @@ class DetailContactFragment : Fragment() {
         binding.btnSupprimer.setOnClickListener {
             confirmerSuppression()
         }
+        binding.btnVoirCarte.setOnClickListener {
+            // Ouvrir la carte
+            val fragment = CarteContactFragment()
+
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, fragment)
+                .addToBackStack(null)
+                .commit()
+        }
     }
 
     private fun chargerContact() {
@@ -87,7 +92,6 @@ class DetailContactFragment : Fragment() {
             }
         }
     }
-
     private fun enregistrerContact() {
 
         val nom = binding.edtNom.text.toString().trim()
@@ -124,13 +128,11 @@ class DetailContactFragment : Fragment() {
             }
 
             if (resultat > 0) {
-
                 Toast.makeText(
                     requireContext(),
                     "Contact enregistré",
                     Toast.LENGTH_SHORT
                 ).show()
-
                 parentFragmentManager.popBackStack()
 
             } else {
@@ -143,9 +145,7 @@ class DetailContactFragment : Fragment() {
             }
         }
     }
-
     private fun confirmerSuppression() {
-
         AlertDialog.Builder(requireContext())
             .setTitle("Supprimer")
             .setMessage("Voulez-vous supprimer ce contact ?")

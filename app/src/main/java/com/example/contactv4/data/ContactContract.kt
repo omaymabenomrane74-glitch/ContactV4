@@ -1,8 +1,6 @@
 package com.example.contactv4.data
 object ContactContract {
-
     const val TABLE_NAME = "contacts"
-
     const val COL_ID = "_id"
     const val COL_NOM = "nom"
     const val COL_PRENOM = "prenom"

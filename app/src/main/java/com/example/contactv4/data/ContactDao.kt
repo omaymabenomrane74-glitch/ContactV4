@@ -4,20 +4,16 @@ import android.database.Cursor
 class ContactDao(private val helper: ContactDbHelper) {
     // Ajouter un contact
     fun insert(contact: Contact): Long {
-
         val db = helper.writableDatabase
         val values = contactToValues(contact)
-
         return db.insert(
             ContactContract.TABLE_NAME,
             null,
             values
         )
     }
-
     // Modifier un contact
     fun update(contact: Contact): Int {
-
         val db = helper.writableDatabase
         val values = contactToValues(contact)
 
@@ -31,8 +27,8 @@ class ContactDao(private val helper: ContactDbHelper) {
 
     // Supprimer un contact
     fun delete(id: Long): Int {
-
         val db = helper.writableDatabase
+
         return db.delete(
             ContactContract.TABLE_NAME,
             "${ContactContract.COL_ID} = ?",
@@ -42,8 +38,8 @@ class ContactDao(private val helper: ContactDbHelper) {
 
     // Afficher tous les contacts
     fun getAll(): List<Contact> {
-
         val db = helper.readableDatabase
+
         val cursor = db.query(
             ContactContract.TABLE_NAME,
             null,
@@ -55,9 +51,9 @@ class ContactDao(private val helper: ContactDbHelper) {
         )
         return cursorToList(cursor)
     }
+
     // Récupérer un contact par ID
     fun getById(id: Long): Contact? {
-
         val db = helper.readableDatabase
 
         val cursor = db.query(
@@ -69,7 +65,6 @@ class ContactDao(private val helper: ContactDbHelper) {
             null,
             null
         )
-
         return cursor.use {
             if (it.moveToFirst()) {
                 cursorToContact(it)
@@ -81,7 +76,6 @@ class ContactDao(private val helper: ContactDbHelper) {
 
     // Rechercher un contact
     fun search(texte: String): List<Contact> {
-
         val db = helper.readableDatabase
         val recherche = "%$texte%"
 
@@ -104,26 +98,19 @@ class ContactDao(private val helper: ContactDbHelper) {
 
     // Transformer un contact en ContentValues
     private fun contactToValues(contact: Contact): ContentValues {
-
         return ContentValues().apply {
-
             put(ContactContract.COL_NOM, contact.nom)
-
             put(ContactContract.COL_PRENOM, contact.prenom)
-
             put(ContactContract.COL_TELEPHONE, contact.telephone)
-
             put(ContactContract.COL_EMAIL, contact.email)
         }
     }
 
     // Transformer Cursor en liste de contacts
     private fun cursorToList(cursor: Cursor): List<Contact> {
-
         val contacts = mutableListOf<Contact>()
 
         cursor.use {
-
             while (it.moveToNext()) {
                 contacts.add(cursorToContact(it))
             }
@@ -136,7 +123,6 @@ class ContactDao(private val helper: ContactDbHelper) {
     private fun cursorToContact(cursor: Cursor): Contact {
 
         return Contact(
-
             id = cursor.getInt(
                 cursor.getColumnIndexOrThrow(
                     ContactContract.COL_ID
@@ -146,25 +132,24 @@ class ContactDao(private val helper: ContactDbHelper) {
                 cursor.getColumnIndexOrThrow(
                     ContactContract.COL_NOM
                 )
-            ),
-
+            ) ?: "",
             prenom = cursor.getString(
                 cursor.getColumnIndexOrThrow(
                     ContactContract.COL_PRENOM
                 )
-            ),
+            ) ?: "",
 
             telephone = cursor.getString(
                 cursor.getColumnIndexOrThrow(
                     ContactContract.COL_TELEPHONE
                 )
-            ),
+            ) ?: "",
 
             email = cursor.getString(
                 cursor.getColumnIndexOrThrow(
                     ContactContract.COL_EMAIL
                 )
-            )
+            ) ?: ""
         )
     }
 }
